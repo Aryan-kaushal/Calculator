@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryan's calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+        .text-centre{
+            text-align: center;
+            font-family:"Roboto";
+            color: white;
+        }
+        .bg-black{
+           background:black; 
+        }
+        .mx-auto{
+           margin:auto; 
+        }
+        .flex{
+            display: flex;
+            font-family:"Roboto";
+        }
+        .flex-col{
+            flex-direction: column;
+            font-family:"Roboto";
+        }
+        .items-cen{
+            align-items: center;
+        }
+        .button{
+            padding: 20px;
+            margin: 0 3px;
+            width: 66px;
+            border: 2px solid black;
+            border-radius: 11px;
+            cursor: pointer;
+            font-family:"Roboto";
+        }
+        .row{
+            margin: 8px 0;
+            font-family:"Roboto";
+        }
+        .row input{
+            margin: 0;
+            padding: 17px 75px;
+            border: 2px solid black;
+            border-radius: 5px;
+            font-family:"Roboto";
+        }
+        .lrow{
+            padding: 20px 70px;
+            flex: 2;
+            font-family:"Roboto";
+        }
+        .lcol{
+            background-color: darkorange;
+        }
+    
+    </style>
+</head>
+<body bgcolor="black">
+    <h1 class="text-centre">Welcome to Aryan's Calculator</h1>
+    <div class="container flex flex-col items-cen bg-red mx-auto">
+        <div  class="row">
+            <input class="input" type="text">
+        </div>
+        <div class="row">
+            <button class="button">AC</button>
+            <button class="button">+/-</button>
+            <button class="button">%</button>
+            <button class="button lcol">÷</button>
+        </div>
+        <div class="row">
+            <button class="button">7</button>
+            <button class="button">8</button>
+            <button class="button">9</button>
+            <button class="button lcol">x</button>
+        </div>
+        <div class="row">
+            <button class="button">4</button>
+            <button class="button">5</button>
+            <button class="button">6</button>
+            <button class="button lcol">-</button>
+        </div>
+        <div class="row">
+            <button class="button">3</button>
+            <button class="button">2</button>
+            <button class="button">1</button>
+            <button class="button lcol">+</button>
+        </div>
+        <div class="row ">
+            <button class="button lrow">0</button>
+            <button class="button">.</button>
+            <button class="button lcol">=</button>
+        </div>
+    </div>
+    <script>
+        let string = "";
+        let buttons = document.querySelectorAll('.button');
+        let inputField = document.querySelector('.input');
+        
+        Array.from(buttons).forEach((button) => {
+            button.addEventListener('click', (e) => {
+                let buttonText = e.target.innerHTML;
+                
+                if (buttonText == '=') {
+                    string = eval(string.replace('x', '*').replace('÷', '/'));
+                    inputField.value = string;
+                } else if (buttonText == 'x') {
+                    string += '*';
+                    inputField.value = string.replace(/\*/g, 'x');
+                } else if (buttonText == '÷') {
+                    string += '/';
+                    inputField.value = string.replace(/\//g, '÷');
+                } else if (buttonText == 'AC') {
+                    string = "";
+                    inputField.value = string;
+                } else if (buttonText == '+/-') {
+                    if (string[0] == '-') {
+                        string = string.substring(1);
+                    } else {
+                        string = '-' + string;
+                    }
+                    inputField.value = string;
+                } else if (buttonText == '%') {
+                    string = (parseFloat(string) / 100).toString();
+                    inputField.value = string;
+                } else {
+                    string += buttonText;
+                    inputField.value = string;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
